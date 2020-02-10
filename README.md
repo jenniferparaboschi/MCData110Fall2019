@@ -1,2 +1,2 @@
-# MCData110Fall2019
+# MCDataScience-Paraboschi
 GitHub repository for Data Science classes

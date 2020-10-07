@@ -26,18 +26,29 @@ print (violations_data)
 violations_data.shape
 violations_data.dtypes
 violations_data.describe(include="all")
+type(violations_data)
+len(violations_data)
+pd.set_option("display.max.columns", None)
+violations_data.info()
+violations_data.describe(include=np.object)
+ 
+violations_data.Disposition
+
 # =============================================================================
 # The dataframe has over 937 rows and 6 columns.
 # The data types for the variables are all objects.
 #the dataframe needs cleaning to convert the objects and extract the information into new columns.  =============================================================================
 # Clean variables with missing values. 
 # Replace missing Disposition values with "No Violation".
-violations_data["Disposition"]=violations_data["Disposition"].fillna("No Violation", inplace=True)
+violations_data["Disposition"]=violations_data["Disposition"].fillna(value="No Violation", inplace=True)
 
 # Create a variable that contains the penalty dollar amount from the Disposition var; disregard rest of Disposition info
 # Pull the characters before the $ into the status var; put the penalty amount into penalty var; drop Disposition column
 # Not all rows have a $ amount; not all rows have a value (blank); 
-violations_data["status"]=violations_data["Disposition"].apply(lambda x: x.split("$")[0])
+cleaning_data=requests.get(violations_data)
+
+
+cleaning_data["status"]=violations_data["Disposition"].apply(lambda x: x.split("$")[0])
 violations_data["penalty"]=violations_data["Disposition"].apply(lambda x: x.split("$")[1])
 violations_data.drop("Disposition", axis=1, inplace=True)
 # Now penalty var contains the penalty plus other characters. Need to clean this and change to numeric for computation. And some will be blank
